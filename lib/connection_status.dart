@@ -5,7 +5,7 @@ class ConnectionStatusRow extends StatelessWidget {
   final bool minusMicroserviceUp;
   final bool multiplyMicroserviceUp;
   final bool divideMicroserviceUp;
-  final double indicatorSize = 40;
+  final double indicatorSize = 25;
 
   const ConnectionStatusRow({
     Key? key,

@@ -5,7 +5,7 @@ class ResultsRow extends StatelessWidget {
   final double minusResult;
   final double multiplyResult;
   final double divideResult;
-  // final double indicatorSize = 40;
+  final double indicatorSize = 40;
 
   const ResultsRow({
     Key? key,
@@ -30,12 +30,16 @@ class ResultsRow extends StatelessWidget {
 
   Widget _buildResultWidget(String result) {
     return Expanded(
-      child: Text(
-        result,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+      child: SizedBox(
+        width: indicatorSize,
+        child: Text(
+          result,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.grey,
+          ),
         ),
       ),
     );

@@ -102,18 +102,20 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
             ConnectionStatusRow(
                 plusMicroserviceUp: _isPlusMicroserviceUp,
                 minusMicroserviceUp: _isMinusMicroserviceUp,
                 multiplyMicroserviceUp: _isMultiplyMicroserviceUp,
                 divideMicroserviceUp: _isDivideMicroserviceUp),
+            const SizedBox(height: 80),
             ResultsRow(
                 plusResult: _plusResult,
                 minusResult: _minusResult,
                 multiplyResult: _multiplyResult,
                 divideResult: _divideResult),
-            const SizedBox(height: 16),
+            const SizedBox(height: 80),
             const Text(
               'Input two numbers:',
               style: TextStyle(fontSize: 20),
