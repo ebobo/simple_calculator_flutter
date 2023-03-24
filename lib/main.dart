@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_cal_flutter/connection_status.dart';
+import 'package:simple_cal_flutter/results.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isMinusMicroserviceUp = false;
   bool _isMultiplyMicroserviceUp = false;
   bool _isDivideMicroserviceUp = false;
+  double _plusResult = 0;
+  double _minusResult = 0;
+  double _multiplyResult = 0;
+  double _divideResult = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -103,6 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 minusMicroserviceUp: _isMinusMicroserviceUp,
                 multiplyMicroserviceUp: _isMultiplyMicroserviceUp,
                 divideMicroserviceUp: _isDivideMicroserviceUp),
+            ResultsRow(
+                plusResult: _plusResult,
+                minusResult: _minusResult,
+                multiplyResult: _multiplyResult,
+                divideResult: _divideResult),
+            const SizedBox(height: 16),
             const Text(
               'Input two numbers:',
               style: TextStyle(fontSize: 20),

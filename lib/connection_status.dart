@@ -20,46 +20,40 @@ class ConnectionStatusRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          width: indicatorSize,
-          height: indicatorSize,
-          decoration: BoxDecoration(
-            color: plusMicroserviceUp ? Colors.green : Colors.red,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-              child: Icon(Icons.add, color: Colors.white, size: 20)),
-        ),
-        Container(
-            width: indicatorSize,
-            height: indicatorSize,
-            decoration: BoxDecoration(
-              color: minusMicroserviceUp ? Colors.green : Colors.red,
-              shape: BoxShape.circle,
-            ),
-            child: const Center(
-                child: Icon(Icons.remove, color: Colors.white, size: 20))),
-        Container(
-          width: indicatorSize,
-          height: indicatorSize,
-          decoration: BoxDecoration(
-            color: minusMicroserviceUp ? Colors.green : Colors.red,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-              child: Icon(Icons.close, color: Colors.white, size: 20)),
-        ),
-        Container(
-          width: indicatorSize,
-          height: indicatorSize,
-          decoration: BoxDecoration(
-            color: minusMicroserviceUp ? Colors.green : Colors.red,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-              child: Icon(Icons.percent, color: Colors.white, size: 20)),
-        ),
+        _buildIndicator(plusMicroserviceUp, "plus"),
+        _buildIndicator(minusMicroserviceUp, "minus"),
+        _buildIndicator(multiplyMicroserviceUp, "multiply"),
+        _buildIndicator(divideMicroserviceUp, "divide"),
       ],
+    );
+  }
+
+  Widget _buildIndicator(bool isUp, String type) {
+    final IconData calIcon;
+    switch (type) {
+      case "plus":
+        calIcon = Icons.add;
+        break;
+      case "minus":
+        calIcon = Icons.remove;
+        break;
+      case "multiply":
+        calIcon = Icons.close;
+        break;
+      case "divide":
+        calIcon = Icons.percent;
+        break;
+      default:
+        calIcon = Icons.add;
+    }
+    return Container(
+      width: indicatorSize,
+      height: indicatorSize,
+      decoration: BoxDecoration(
+        color: isUp ? Colors.green : Colors.red,
+        shape: BoxShape.circle,
+      ),
+      child: Center(child: Icon(calIcon, color: Colors.white, size: 20)),
     );
   }
 }
