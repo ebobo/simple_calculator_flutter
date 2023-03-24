@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:simple_cal_flutter/connection_status.dart';
 import 'package:simple_cal_flutter/results.dart';
 
@@ -128,6 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '1st Number',
@@ -137,6 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '2nd Number',
@@ -150,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: null,
         tooltip: 'Increment',
         child: const Icon(Icons.drag_handle),
       ), // This trailing comma makes auto-formatting nicer for build methods.
