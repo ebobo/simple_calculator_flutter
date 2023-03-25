@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ConnectionStatusRow extends StatelessWidget {
@@ -51,7 +50,7 @@ class ConnectionStatusRow extends StatelessWidget {
       width: indicatorSize,
       height: indicatorSize,
       decoration: BoxDecoration(
-        color: isUp ? Colors.green : Colors.red,
+        color: isUp ? Colors.green : Colors.grey[600],
         shape: BoxShape.circle,
       ),
       child: Center(child: Icon(calIcon, color: Colors.white, size: 20)),

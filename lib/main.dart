@@ -63,10 +63,20 @@ class _MyHomePageState extends State<MyHomePage> {
   double _minusResult = 0;
   double _multiplyResult = 0;
   double _divideResult = 0;
+  final _firstNumberController = TextEditingController();
+  final _secondNumberController = TextEditingController();
   final _apiService = ApiService();
 
-  void _incrementCounter() {
+  void _handleSubmit() async {
+    final firstNumber = double.parse(_firstNumberController.text);
+    final secondNumber = double.parse(_secondNumberController.text);
+
+    print('firstNumber: $firstNumber secondNumber: $secondNumber');
+    final plusResult = await _apiService.plus(firstNumber, secondNumber);
+
+    print('plusResult: $plusResult');
     setState(() {
+      _plusResult = plusResult;
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
@@ -78,15 +88,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 2), (Timer t) {
+    Timer.periodic(const Duration(seconds: 3), (Timer t) {
       _checkBackendHealth();
     });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _firstNumberController.dispose();
+    _secondNumberController.dispose();
+    super.dispose();
   }
 
   // check backend health
   Future<void> _checkBackendHealth() async {
     // check plus microservice health
-    final plusMicroserviceUp = await _apiService.checkBackendHealth();
+    final plusMicroserviceUp = await _apiService.checkPlusServiceHealth();
     setState(() {
       _isPlusMicroserviceUp = plusMicroserviceUp;
     });
@@ -151,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: _firstNumberController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
@@ -159,11 +178,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(),
                         labelText: '1st Number',
                       ),
+                      validator: (value) {
+                        if (value != null && value.trim().isEmpty) {
+                          return 'Number A is required';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: TextFormField(
+                      controller: _secondNumberController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
@@ -181,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _handleSubmit,
         tooltip: 'Increment',
         child: const Icon(Icons.drag_handle),
       ), // This trailing comma makes auto-formatting nicer for build methods.
