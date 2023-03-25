@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_cal_flutter/connection_status.dart';
-import 'package:simple_cal_flutter/results.dart';
+import 'package:simple_cal_flutter/screens/connection_status.dart';
+import 'package:simple_cal_flutter/screens/results.dart';
+import 'package:simple_cal_flutter/service/rest.dart';
+import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double _minusResult = 0;
   double _multiplyResult = 0;
   double _divideResult = 0;
+  final _apiService = ApiService();
 
   void _incrementCounter() {
     setState(() {
@@ -67,6 +72,23 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 2), (Timer t) {
+      _checkBackendHealth();
+    });
+  }
+
+  // check backend health
+  Future<void> _checkBackendHealth() async {
+    // check plus microservice health
+    final plusMicroserviceUp = await _apiService.checkBackendHealth();
+    setState(() {
+      _isPlusMicroserviceUp = plusMicroserviceUp;
     });
   }
 
@@ -159,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.drag_handle),
       ), // This trailing comma makes auto-formatting nicer for build methods.
