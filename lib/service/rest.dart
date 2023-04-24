@@ -33,12 +33,18 @@ class ApiService {
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return data['result'];
+        if (data['result'] is int) {
+          return data['result'].toDouble();
+        } else {
+          return data['result'];
+        }
       } else {
-        return 0;
+        return 0.0;
       }
     } catch (e) {
-      return 0;
+      print('Error: exception caught - $e');
+
+      return 0.0;
     }
   }
 }

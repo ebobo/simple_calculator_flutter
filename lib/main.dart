@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isMinusMicroserviceUp = false;
   bool _isMultiplyMicroserviceUp = false;
   bool _isDivideMicroserviceUp = false;
-  double _plusResult = 0;
+  double _plusResult = 1;
   double _minusResult = 0;
   double _multiplyResult = 0;
   double _divideResult = 0;
@@ -72,11 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
     final secondNumber = double.parse(_secondNumberController.text);
 
     print('firstNumber: $firstNumber secondNumber: $secondNumber');
-    final plusResult = await _apiService.plus(firstNumber, secondNumber);
+    final plusRes = await _apiService.plus(firstNumber, secondNumber);
 
-    print('plusResult: $plusResult');
+    print('plusResult: $plusRes');
     setState(() {
-      _plusResult = plusResult;
+      _plusResult = plusRes;
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
